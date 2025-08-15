@@ -366,6 +366,204 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
 /* ====== Responsive ====== */
 @media (max-width: 720px) {
   .nav { display: none; }
+  
+  /* Hero sekce */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 32px;
+  }
+  .hero-text {
+    order: 2;
+  }
+  .hero-photo {
+    order: 1;
+  }
+  .hero-title {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  /* Timeline */
+  .timeline {
+    padding-left: 0;
+    position: relative;
+  }
+  .timeline::before {
+    left: 20px;
+  }
+  .timeline-item {
+    margin-left: 0;
+    padding-left: 50px;
+    margin-bottom: 32px;
+  }
+  .timeline-dot {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+  }
+  .timeline-content {
+    margin-left: 0;
+  }
+  
+  /* Grid layouts */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .projects {
+    grid-template-columns: 1fr;
+  }
+  .skills {
+    grid-template-columns: 1fr;
+  }
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  /* Sections */
+  .section {
+    padding: 48px 0;
+  }
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  /* Filters */
+  .filters {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  
+  /* Contact */
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  /* About cards */
+  .about-content .card {
+    padding: 20px;
+  }
+  
+  /* Typography */
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  
+  /* Container */
+  .container {
+    width: min(100%, 92%);
+  }
+  
+  /* Contact form specific mobile fixes */
+  .contact-form {
+    padding: 20px 16px;
+    margin: 0 -8px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 14px 16px;
+  }
+  
+  .form-group textarea {
+    min-height: 100px;
+  }
+  
+  .contact-form .btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+  }
+  
+  /* Loading screen mobile */
+  .loading-screen .logo-container {
+    padding: 20px;
+  }
+  
+  .loading-screen .logo-text {
+    font-size: 28px;
+  }
+  
+  /* Theme toggle */
+  .theme-toggle {
+    right: 20px;
+    top: 20px;
+  }
+}
+
+/* Extra small devices - malé telefony */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 20px;
+  }
+  
+  .hero-subtitle {
+    font-size: 14px;
+  }
+  
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeline-item {
+    padding-left: 40px;
+  }
+  
+  .timeline::before {
+    left: 15px;
+  }
+  
+  .timeline-dot {
+    left: 10px;
+  }
+  
+  .section {
+    padding: 32px 0;
+  }
+  
+  .contact-form {
+    padding: 16px 12px;
+  }
+  
+  .container {
+    width: min(100%, 95%);
+  }
+  
+  /* Lepší touch targets */
+  .chip {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+  
+  .btn {
+    min-height: 48px;
+    touch-action: manipulation;
+  }
 }
 
 /* ====== Loading Screen ====== */
