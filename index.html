@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>David – Programátorské Portfolio</title>
+  <meta name="description" content="Portfolio Java vývojáře: projekty, dovednosti, kontakty." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="preload" href="script.js" as="script">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"David",
+    "jobTitle":"Java Developer",
+    "url":"https://codebydejv.cz",
+    "sameAs":[
+      "https://github.com/Dejv1sko",
+      "https://www.linkedin.com/in/david-hradec-5144a9378/"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-logo">
+        <span class="loading-brackets">&lt;/&gt;</span>
+        <span class="loading-text">codebydejv</span>
+      </div>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <p class="loading-message">Načítám portfolio...</p>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container row header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-brackets">&lt;/&gt;</span>
+        <span class="brand-text">codebydejv</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#o-mne">O mně</a>
+        <a href="#timeline">Moje cesta</a>
+        <a href="#projekty">Projekty</a>
+        <a href="#dovednosti">Dovednosti</a>
+        <a href="#clanky">Články</a>
+        <a href="#nastroje">Nástroje</a>
+        <a href="#triky">Tipy & triky</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="header-controls">
+        <button id="themeToggle" class="btn ghost" aria-label="Přepnout téma">🌓</button>
+        <button id="mobileToggle" class="btn ghost mobile-toggle" aria-label="Otevřít menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="section hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">Java 21 • Spring Boot • SQL • HIBERNATE • REST API</h1>
+          <p class="hero-subtitle">
+            Stavím čisté a čitelné backendy, testuju kritická místa, databáze navrhuji s rozmyslem.
+            Hledám tým pracující chytře,     ne složitě.
+          </p>
+          <div class="actions row">
+            <a class="btn primary" href="#projekty">Mrkni na projekty</a>
+            <a class="btn outline" href="Hradec_David_Zivotopis.pdf" download>Stáhnout CV</a>
+            <a class="btn link" href="https://github.com/Dejv1sko" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="fotka.jpg" alt="David Hradec - Java Developer" class="profile-photo">
+        </div>
+      </div>
+      <div class="hero-gradient" aria-hidden="true"></div>
+    </section>
+
+    <!-- O mně -->
+    <section id="o-mne" class="section alt">
+      <div class="container">
+        <h2>O mně</h2>
+        <div class="about-content">
+          <div class="card">
+            <h3>🎯 Můj příběh</h3>
+            <p>
+              Jsem vystudovaný policista, který se původně šel učit řemeslu. Ale vždycky jsem měl technické vlohy od dětství 
+              a programování jsem objevil poměrně pozdě, ale o to intenzivněji. Dlouho jsem hledal směr, který by mě opravdu bavil a naplňoval. 
+              Když jsem poprvé napsal "Hello World" v Javě, věděl jsem, že jsem našel to svoje.
+            </p>
+            <p>
+              Začal jsem jako naprostý začátečnik - žádné informatické vzdělání, žádná předchozí zkušenost s kódem. 
+              Jen zvědavost a odhodlání naučit se něco nového. Prvních pár měsíců bylo frustrujících, ale postupně 
+              se začaly skládat puzzle pieces a programování se stalo mou vášní.
+            </p>
+            <p>
+              <strong>Co mě na Javě fascinuje?</strong> Je to jazyk, který má jasnou strukturu, ale zároveň obrovské možnosti. 
+              Spring Boot ecosystem, enterprise patterns, čistý kód - to vše mi dává smysl a baví mě v tom pokračovat každý den.
+            </p>
+          </div>
+          
+          <div class="card">
+            <h3>🚀 Kde jsem teď</h3>
+            <p>
+              Momentálně se specializuji na backend development s Javou 21 a Spring Boot. Mám rád čisté API, 
+              správně navržené databáze a kód, který je čitelný i za půl roku.
+            </p>
+            <p>
+              Věřím v pragmatický přístup - nepoužívám technologie jen proto, že jsou trendy, 
+              ale proto, že řeší konkrétní problémy. Testování, dokumentace a code review považuji 
+              za nezbytnou součást vývoje, ne za zbytečnou zátěž.
+            </p>
+            <ul class="feature-list">
+              <li>✅ Píšu čitelný a udržovatelný kód</li>
+              <li>✅ Testuji kritická místa aplikace</li>
+              <li>✅ Dokumentuji API a architekturu</li>
+              <li>✅ Používám Git s čistou historií commitů</li>
+              <li>✅ Komunikuji otevřeně o problémech i řešeních</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3>🎓 Jak se učím</h3>
+            <p>
+              Absolvoval jsem 6měsíční rekvalifikační kurz Java programátora, který mi dal pevné základy. 
+              Od té doby jsem se stal autodidaktem, což znamená, že si vše musím najít, pochopit a vyzkoušet sám. 
+              Tenhle přístup mě naučil být samostatný a důkladný. Když něco nechápu, nezůstanu u povrchu, 
+              ale jdu do hloubky, dokud to nedává smysl.
+            </p>
+            <p>
+              Moje oblíbené zdroje jsou oficiální dokumentace, Stack Overflow, GitHub repozitáře 
+              úspěšných projektů a občas kvalitní kurzy. Vlastní projekty jsou pro mě nejlepší učitel - 
+              když narazím na problém v reálném kódu, pamatuji si řešení mnohem lépe.
+            </p>
+          </div>
+          
+          <div class="card">
+            <h3>🔮 Kam směřuji</h3>
+            <p>
+              Chci se stát seniorním Java developerem, který nejen píše kvalitní kód, ale také mentoruje 
+              začátečníky a přispívá k architektonickým rozhodnutím. Zajímají mě mikroservisy, 
+              cloud technologie (AWS, Azure), AI integrace a pokročilé návrhové vzory.
+            </p>
+            <p>
+              Věřím, že budoucnost programování je v symbióze s umělou inteligencí - ne jako nahrazení, 
+              ale jako mocný nástroj pro rychlejší vývoj a lepší řešení problémů. Zajímá mě, jak AI 
+              integrovat do backend aplikací a využívat ji pro automatizaci.
+            </p>
+            <p>
+              Hledám tým, kde se pracuje chytře, otevřeně komunikuje a kde mohu růst spolu s projekty. 
+              Ideálně prostředí, kde se nebojí experimentovat, ale zároveň drží kvalitní standardy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline" class="section">
+      <div class="container">
+        <h2>Moje cesta</h2>
+        <div class="timeline">
+          <div class="timeline-item" data-animate>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card">
+              <h3>2025 - Současnost</h3>
+              <h4>Junior Java programátor (hledám pozici)</h4>
+              <p>Dokončuji portfolio projekty, zdokonaluji Spring Boot a hledám svou první developer pozici.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card">
+              <h3>2025 - 2025</h3>
+              <h4>Rekvalifikační kurz Java</h4>
+              <p>6měsíční intenzivní kurz Java programátora. Základy OOP, Spring Boot, databáze, první projekty.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content card">
+              <h3>od 2023 do 2025</h3>
+              <h4>Policista + řemeslník</h4>
+              <p>Vystudovaný policista, učil jsem se řemeslu a naučil se lakovat auta. Vždycky jsem měl technické vlohy, ale programování jsem objevil až později.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projekty -->
+    <section id="projekty" class="section">
+      <div class="container">
+        <div class="row section-head">
+          <h2>Vybrané projekty</h2>
+          <div class="filters row" id="filters"></div>
+        </div>
+        <div id="projectsGrid" class="grid projects"></div>
+      </div>
+    </section>
+
+    <!-- Dovednosti -->
+    <section id="dovednosti" class="section alt">
+      <div class="container">
+        <h2>Dovednosti</h2>
+        <div id="skillsGrid" class="grid skills"></div>
+      </div>
+    </section>
+
+    <!-- Články -->
+    <section id="clanky" class="section alt">
+      <div class="container">
+        <div class="row section-head">
+          <h2>Články a poznámky</h2>
+          <div class="filters row" id="articleFilters"></div>
+        </div>
+        <div id="articlesGrid" class="grid articles"></div>
+      </div>
+    </section>
+
+    <!-- Tipy a triky -->
+    <section id="triky" class="section">
+      <div class="container">
+        <h2>Junior vychytávky</h2>
+        <ul id="tipsList" class="tips-list"></ul>
+      </div>
+    </section>
+
+    <!-- Oblíbené nástroje -->
+    <section id="nastroje" class="section">
+      <div class="container">
+        <h2>Oblíbené nástroje & technologie</h2>
+        <div id="toolsGrid" class="grid tools-grid"></div>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="section alt">
+      <div class="container">
+        <h2>Napiš mi</h2>
+        <div class="contact-content">
+          <div class="contact-info">
+            <h3>Spojme se!</h3>
+            <p>Máš zájem o spolupráci, dotaz k projektům nebo jen chceš popovídat o kódu? Napiš mi zprávu a ozvu se ti co nejdříve.</p>
+            <div class="contact-links">
+              <a href="https://www.linkedin.com/in/david-hradec-5144a9378/" target="_blank" rel="noreferrer" class="contact-link">
+                💼 LinkedIn
+              </a>
+              <a href="https://github.com/Dejv1sko" target="_blank" rel="noreferrer" class="contact-link">
+                🐙 GitHub
+              </a>
+            </div>
+          </div>
+          <form id="contactForm" class="contact-form card">
+            <div class="form-group">
+              <label for="name">Tvoje jméno *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Tvůj email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Předmět</label>
+              <input type="text" id="subject" name="subject" placeholder="O čem chceš psát?">
+            </div>
+            <div class="form-group">
+              <label for="message">Zpráva *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Ahoj Davide, ..."></textarea>
+            </div>
+            <button type="submit" class="btn primary">
+              <span class="btn-text">Odeslat zprávu</span>
+              <span class="btn-loading">Odesílám...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container row">
+      <small>© <span id="year"></span> David Hradec. Postaveno bez frameworků.</small>
+      <a href="?test=1" class="muted">Spustit self-testy</a>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
