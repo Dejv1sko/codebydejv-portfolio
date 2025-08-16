@@ -836,22 +836,22 @@ html.light .form-group textarea {
     position: fixed !important; 
     top: 64px !important; 
     right: 0 !important; 
-    width: 280px !important;
-    max-width: 80vw !important;
+    width: 200px !important;
+    max-width: 60vw !important;
     background: var(--bg-primary) !important; 
     border-left: 1px solid var(--border) !important;
     border-bottom: 1px solid var(--border) !important;
     flex-direction: column !important; 
     gap: 0 !important; 
-    padding: 20px 0 !important;
+    padding: 16px 0 !important;
     transform: translateX(100%) !important; 
     opacity: 0 !important;
     transition: all 0.3s ease !important; 
     pointer-events: none !important;
     z-index: 1000 !important;
-    box-shadow: -4px 4px 12px rgba(0,0,0,0.1) !important;
+    box-shadow: -2px 2px 8px rgba(0,0,0,0.15) !important;
     display: flex !important;
-    border-radius: 0 0 0 12px !important;
+    border-radius: 0 0 0 8px !important;
   }
   
   html.light .nav { 
@@ -867,11 +867,13 @@ html.light .form-group textarea {
   }
   
   .nav a { 
-    padding: 16px 24px !important; 
+    padding: 12px 20px !important; 
     display: block !important;
     border-bottom: 1px solid transparent !important;
     transition: all 0.2s ease !important;
     text-align: left !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
   }
   
   .nav a:hover {
