@@ -139,71 +139,9 @@ html.light .nav a:hover { color: var(--l-text); }
 .mobile-toggle { 
   display: none; 
   font-size: 18px; 
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
 }
 
-.mobile-toggle:hover {
-  background-color: var(--bg-secondary);
-}
-
-@media (max-width: 720px) {
-  .mobile-toggle { 
-    display: block;
-    position: relative;
-    z-index: 1001;
-  }
-  
-  .nav {
-    position: fixed; 
-    top: 64px; 
-    left: 0; 
-    right: 0;
-    background: var(--bg-primary); 
-    border-bottom: 1px solid var(--border);
-    flex-direction: column; 
-    gap: 0; 
-    padding: 20px 0;
-    transform: translateY(-100%); 
-    opacity: 0;
-    transition: all 0.3s ease; 
-    pointer-events: none;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  
-  html.light .nav { 
-    background: var(--l-bg-primary); 
-    border-bottom-color: var(--l-border); 
-  }
-  
-  .nav.active { 
-    transform: translateY(0); 
-    opacity: 1; 
-    pointer-events: all; 
-  }
-  
-  .nav a { 
-    padding: 16px 24px; 
-    display: block;
-    border-bottom: 1px solid transparent;
-    transition: all 0.2s ease;
-  }
-  
-  .nav a:hover {
-    background-color: var(--bg-secondary);
-    border-bottom-color: var(--border);
-  }
-  
-  html.light .nav a:hover {
-    background-color: var(--l-bg-secondary);
-  }
-}
+/* Mobilní menu CSS je na konci souboru s !important */
 
 /* ====== Hero ====== */
 .hero { position: relative; }
@@ -424,7 +362,7 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
 
 /* ====== Responsive ====== */
 @media (max-width: 720px) {
-  .nav { display: none; }
+  /* Desktop navigation je skrytá, mobilní menu funguje přes .mobile-toggle */
   
   /* Hero sekce */
   .hero-content {
@@ -871,6 +809,73 @@ html.light .form-group textarea {
   100% {
     transform: translateY(100vh) rotate(720deg);
     opacity: 0;
+  }
+}
+
+/* ====== Mobile Navigation - FINAL OVERRIDE ====== */
+@media (max-width: 720px) {
+  .mobile-toggle { 
+    display: block !important;
+    position: relative;
+    z-index: 1001;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobile-toggle:hover {
+    background-color: var(--bg-secondary);
+  }
+  
+  .nav {
+    position: fixed !important; 
+    top: 64px !important; 
+    left: 0 !important; 
+    right: 0 !important;
+    background: var(--bg-primary) !important; 
+    border-bottom: 1px solid var(--border) !important;
+    flex-direction: column !important; 
+    gap: 0 !important; 
+    padding: 20px 0 !important;
+    transform: translateY(-100%) !important; 
+    opacity: 0 !important;
+    transition: all 0.3s ease !important; 
+    pointer-events: none !important;
+    z-index: 1000 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    display: flex !important;
+  }
+  
+  html.light .nav { 
+    background: var(--l-bg-primary) !important; 
+    border-bottom-color: var(--l-border) !important; 
+  }
+  
+  .nav.active { 
+    transform: translateY(0) !important; 
+    opacity: 1 !important; 
+    pointer-events: all !important; 
+  }
+  
+  .nav a { 
+    padding: 16px 24px !important; 
+    display: block !important;
+    border-bottom: 1px solid transparent !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .nav a:hover {
+    background-color: var(--bg-secondary) !important;
+    border-bottom-color: var(--border) !important;
+  }
+  
+  html.light .nav a:hover {
+    background-color: var(--l-bg-secondary) !important;
   }
 }
 
