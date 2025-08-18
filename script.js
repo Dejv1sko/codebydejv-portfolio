@@ -288,7 +288,7 @@ function renderArticles(activeTag = null) {
       </div>
       <p class="article-excerpt">${escapeHTML(a.excerpt)}</p>
       <div class="tags">${a.tags.map(t => `<span class="chip" aria-hidden="true">${t}</span>`).join("")}</div>
-      <a class="article-link" href="${a.link}">Číst článek →</a>
+      <button class="article-link" onclick="openArticleModal('${a.link}')">Číst článek →</button>
     `;
     grid.appendChild(card);
   });
@@ -513,5 +513,62 @@ function runTests() {
     console.error("❌ Test selhal:", e);
   } finally {
     console.groupEnd();
+  }
+}
+
+// Modal pro zobrazování článků
+function openArticleModal(articlePath) {
+  // Načti obsah článku
+  fetch(articlePath)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Článek se nepodařilo načíst');
+      }
+      return response.text();
+    })
+    .then(html => {
+      // Extrahuj obsah článku z HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const articleContent = doc.querySelector('.article-content');
+      const articleHeader = doc.querySelector('.article-header');
+      
+      if (!articleContent || !articleHeader) {
+        throw new Error('Neplatný formát článku');
+      }
+      
+      // Vytvoř modal
+      const modal = document.createElement('div');
+      modal.className = 'article-modal';
+      modal.innerHTML = `
+        <div class="article-modal-content">
+          <button class="article-modal-close" onclick="closeArticleModal()">&times;</button>
+          <div class="article-modal-body">
+            ${articleHeader.outerHTML}
+            ${articleContent.outerHTML}
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+      
+      // Animace
+      setTimeout(() => modal.classList.add('active'), 10);
+    })
+    .catch(error => {
+      console.error('Chyba při načítání článku:', error);
+      alert('Nepodařilo se načíst článek. Zkuste to později.');
+    });
+}
+
+function closeArticleModal() {
+  const modal = document.querySelector('.article-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    setTimeout(() => {
+      document.body.removeChild(modal);
+      document.body.style.overflow = '';
+    }, 300);
   }
 }
