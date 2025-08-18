@@ -31,10 +31,10 @@ const PROJECTS = [
     demo: "#"
   },
   {
-    title: "OSVČ náklady – kalkulačka",
-    desc: "Vanilla JS + HTML. Vzorečky, validace, rychlý výpočet a ukládání do localStorage.",
-    tags: ["JavaScript", "Frontend"],
-    code: "#",
+    title: "Evidence OSVČ",
+    desc: "JavaFX desktopová aplikace pro správu faktur, jízd a nákladů podnikatele. Evidence příjmů/výdajů, statistiky, automatické reporty, výpočet daně a pojištění.",
+    tags: ["Java", "JavaFX", "Desktop"],
+    code: "https://github.com/Dejv1sko/OSVC-Evidence",
     demo: "#"
   }
 ];
@@ -77,7 +77,7 @@ const ARTICLES = [
 
 const ARTICLE_TAG_ORDER = ["Vše", "Java", "Spring Boot", "REST API", "Začátečník", "AI", "Backend", "Učení", "Nástroje", "Produktivita"];
 
-const TAG_ORDER = ["Vše", "Java", "Spring", "REST", "React", "JUnit", "MySQL", "CLI", "JavaScript", "Frontend", "AI"];
+const TAG_ORDER = ["Vše", "Java", "Spring", "REST", "React", "JUnit", "MySQL", "CLI", "JavaScript", "Frontend", "JavaFX", "Desktop", "AI"];
 
 const SKILLS = [
   { name: "Java 21", lvl: 80 },
