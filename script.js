@@ -71,7 +71,7 @@ const ARTICLES = [
     date: "2025-04-25",
     readTime: "4 min",
     tags: ["AI", "Nástroje", "Produktivita"],
-    link: "#"
+    link: "clanky/ai-nastroje-pro-java-developery.html"
   }
 ];
 

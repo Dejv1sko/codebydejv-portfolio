@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI nástroje pro Java developery - moje zkušenosti | codebydejv</title>
+  <meta name="description" content="Jak využívám ChatGPT a GitHub Copilot při učení a kódování. Co funguje a co ne při práci s AI asistenty." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container row header-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-brackets">&lt;/&gt;</span>
+        <span class="brand-text">codebydejv</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html#o-mne">O mně</a>
+        <a href="../index.html#projekty">Projekty</a>
+        <a href="../index.html#clanky">Články</a>
+        <a href="../index.html#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-main">
+    <div class="container">
+      <article class="article">
+        <header class="article-header">
+          <div class="article-meta">
+            <span class="article-date">25. dubna 2025</span>
+            <span class="article-read-time">4 min čtení</span>
+          </div>
+          <h1>AI nástroje pro Java developery - moje zkušenosti</h1>
+          <p class="article-excerpt">
+            Jak využívám ChatGPT a GitHub Copilot při učení a kódování. Co funguje a co ne při práci s AI asistenty.
+          </p>
+          <div class="article-tags">
+            <span class="tag">AI</span>
+            <span class="tag">Nástroje</span>
+            <span class="tag">Produktivita</span>
+          </div>
+        </header>
+
+        <div class="article-content">
+          <p>
+            AI nástroje jsou dnes všude. Jako začátečník v Javě jsem zpočátku váhal - 
+            není to podvádění? Nenaučím se díky tomu míň? Po roce používání ChatGPT a GitHub Copilot 
+            můžu říct: je to komplexnější, než si myslíš.
+          </p>
+
+          <h2>🤖 Moje AI arzenál</h2>
+          
+          <h3>GitHub Copilot</h3>
+          <p>
+            Platím 10$ měsíčně a stojí to za to. Copilot je jako kolega, který sedí vedle 
+            a náhodně ti doplní řádek kódu. Někdy brillantně, někdy úplně vedle.
+          </p>
+
+          <h3>ChatGPT</h3>
+          <p>
+            Používám hlavně GPT-4 (Plus předplatné). Je to můj "senior developer", 
+            kterého se můžu ptát na cokoliv, kdykoliv. Bez ostychu a bez strachu, že si někdo myslí, 
+            že jsem hloupý.
+          </p>
+
+          <h2>✅ Kde mi AI pomáhá nejvíc</h2>
+          
+          <h3>1. Učení nových konceptů</h3>
+          <p>
+            Když jsem se učil Spring Boot, ChatGPT mi vysvětlil dependency injection lépe než většina tutoriálů:
+          </p>
+          
+          <blockquote>
+            <p>
+              <strong>Já:</strong> "Vysvětli mi dependency injection v Spring Boot jako bych měl 12 let"<br><br>
+              <strong>ChatGPT:</strong> "Představ si, že stavíš Lego model. Místo abys hledal všechny dílky sám, 
+              máš kamaráda, který ti přinese přesně ty dílky, které potřebuješ. Spring Boot je ten kamarád..."
+            </p>
+          </blockquote>
+
+          <p>Takové vysvětlení jsem v dokumentaci nenašel.</p>
+
+          <h3>2. Code review a vysvětlování</h3>
+          <p>
+            Když najdu kód na GitHubu a nechápu ho, vložím ho do ChatGPT:
+          </p>
+
+          <pre><code>// Našel jsem tohle na GitHubu, co to dělá?
+@Transactional(readOnly = true)
+public Page&lt;UserDto&gt; findUsers(Pageable pageable, UserFilter filter) {
+    Specification&lt;User&gt; spec = UserSpecifications.withFilter(filter);
+    return userRepository.findAll(spec, pageable)
+        .map(userMapper::toDto);
+}</code></pre>
+
+          <p>
+            ChatGPT mi vysvětlí každou anotaci, každý pattern, každý krok. 
+            Jako by mi někdo dělal pair programming.
+          </p>
+
+          <h3>3. Boilerplate kód</h3>
+          <p>
+            GitHub Copilot excelluje v psaní nudného kódu. Napíšu začátek, on doplní zbytek:
+          </p>
+
+          <pre><code>// Napíšu jen tohle:
+public class PolicyDto {
+    private Long id;
+    private String number;
+    
+// A Copilot mi navrhne:
+    private BigDecimal amount;
+    private LocalDateTime createdAt;
+    private String clientName;
+    
+    // Konstruktory, gettery, settery...
+}</code></pre>
+
+          <h3>4. Testování</h3>
+          <p>
+            Psaní testů s AI je radost. Popíšu mu metodu a on mi navrhne testy:
+          </p>
+
+          <pre><code>@Test
+@DisplayName("Should create policy when valid data provided")
+void shouldCreatePolicyWhenValidDataProvided() {
+    // Given
+    CreatePolicyDto dto = new CreatePolicyDto();
+    dto.setNumber("POL-123");
+    dto.setAmount(new BigDecimal("10000"));
+    
+    // When
+    PolicyDto result = policyService.create(dto);
+    
+    // Then
+    assertThat(result.getNumber()).isEqualTo("POL-123");
+    assertThat(result.getAmount()).isEqualTo(new BigDecimal("10000"));
+}</code></pre>
+
+          <h2>❌ Kde AI selhává</h2>
+          
+          <h3>1. Složitá business logika</h3>
+          <p>
+            AI je skvělé na syntax, ale business požadavky nechápe. Když potřebuju implementovat 
+            specifické pravidla pro výpočet pojistného, musím to napsat sám.
+          </p>
+
+          <h3>2. Architektura aplikace</h3>
+          <p>
+            ChatGPT mi nenavrhne architekturu celé aplikace. Neví, jak rozdělit vrstvy, 
+            kde umístit jakou logiku, jak navrhnout databázové schéma.
+          </p>
+
+          <h3>3. Debugging složitých chyb</h3>
+          <p>
+            Když mám NullPointerException hluboko ve Stack Trace, AI mi moc nepomůže. 
+            Potřebuju debugger a vlastní hlavu.
+          </p>
+
+          <h3>4. Současné technologie</h3>
+          <p>
+            AI má cutoff date. O nejnovějších features Spring Boot 3.2+ neví, 
+            doporučuje mi zastaralé approaches.
+          </p>
+
+          <h2>🧠 Má hlava vs AI - jak to kombinujem</h2>
+          
+          <h3>Můj typický workflow:</h3>
+          <ol>
+            <li><strong>Přemýšlím</strong> - Jaký problém řeším? Jaký je cíl?</li>
+            <li><strong>Navrhuju</strong> - Jak to udělám? Jakou strukturu použiju?</li>
+            <li><strong>Píšu</strong> - Začnu psát kód, Copilot pomáhá s boilerplatem</li>
+            <li><strong>Konzultujem</strong> - Nejasnosti řeším s ChatGPT</li>
+            <li><strong>Testujem</strong> - AI mi pomůže s testy, ale test scénáře vymýšlím sám</li>
+            <li><strong>Refaktoring</strong> - ChatGPT mi navrhne zlepšení</li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <strong>Zlaté pravidlo:</strong> AI je nástroj, ne mozek. 
+              Každý řádek kódu, který navrhne, musím pochopit a odsouhlasit.
+            </p>
+          </blockquote>
+
+          <h2>💡 Praktické tipy pro používání AI</h2>
+          
+          <h3>✅ Dělej to takto:</h3>
+          <ul>
+            <li><strong>Ptej se specificky</strong> - "Jak implementovat pagination v Spring Boot" vs "Jak dělat stránkování"</li>
+            <li><strong>Poskytni kontext</strong> - Vlož svůj kód, vysvětli, co chceš dosáhnout</li>
+            <li><strong>Ověřuj vše</strong> - Každý návrh AI si ověř v dokumentaci</li>
+            <li><strong>Experimentuj</strong> - Zkus různé prompts pro lepší výsledky</li>
+            <li><strong>Učit se od AI</strong> - Ptej se "proč" a "jak to funguje"</li>
+          </ul>
+
+          <h3>❌ Nedělej to:</h3>
+          <ul>
+            <li><strong>Slepě kopíruj</strong> - Nechápeš-li kód, nepoužívej ho</li>
+            <li><strong>Spoléhej se 100%</strong> - AI dělá chyby, ty je musíš najít</li>
+            <li><strong>Přeskoč učení</strong> - AI není náhrada za pochopení základů</li>
+            <li><strong>Očekávej zázraky</strong> - AI nenapíše celou aplikaci za tebe</li>
+          </ul>
+
+          <h2>📈 Jak AI změnilo moje učení</h2>
+          
+          <h3>Pozitiva:</h3>
+          <ul>
+            <li><strong>Rychlejší pochopení</strong> - Složité koncepty vysvětlené jednoduše</li>
+            <li><strong>Méně googling</strong> - Odpovědi mám okamžitě</li>
+            <li><strong>Víc experimentování</strong> - Nebojím se zkoušet nové věci</li>
+            <li><strong>Lepší kód</strong> - AI mi ukazuje best practices</li>
+          </ul>
+
+          <h3>Negativa:</h3>
+          <ul>
+            <li><strong>Tendence k línosti</strong> - Někdy se ptám místo přemýšlení</li>
+            <li><strong>Falešná jistota</strong> - AI zní sebevědomě, i když se mýlí</li>
+            <li><strong>Dependency</strong> - Bez AI se cítím naked</li>
+          </ul>
+
+          <h2>🎯 Moje doporučení pro začátečníky</h2>
+          
+          <h3>1. Nejdřív základy (1-2 měsíce bez AI)</h3>
+          <p>
+            Nauč se Java syntax, OOP, základní patterns. Bez AI. Musíš pochopit základ, 
+            než začneš používat pomocníky.
+          </p>
+
+          <h3>2. Postupně přidávej AI</h3>
+          <p>
+            Začni s ChatGPT pro vysvětlování konceptů. GitHub Copilot až když umíš psát kód sám.
+          </p>
+
+          <h3>3. Vždycky se ptej "proč"</h3>
+          <p>
+            Každý návrh AI si nech vysvětlit. Nebuď passive consumer, buď active learner.
+          </p>
+
+          <h2>🏁 Závěr</h2>
+          <p>
+            AI nástroje jsou revolutionary pro učení programování. Ale nejsou magic wand. 
+            Stále potřebuješ vlastní hlavu, logické myšlení a chuť se učit.
+          </p>
+          
+          <p>
+            <strong>Můj verdict:</strong> Používej AI, ale neboj se ho vypnout. 
+            Nejlepší programátoři jsou ti, kteří umí s AI i bez něj.
+          </p>
+
+          <blockquote>
+            <p>
+              "AI doplňuje naše schopnosti, nenahrazuje je. Dobrý developer s AI je lepší než dobrý developer bez AI. 
+              Ale špatný developer s AI je pořád špatný developer."
+            </p>
+          </blockquote>
+
+          <hr>
+
+          <p>
+            <em>
+              Jaké máš zkušenosti s AI při programování? Pomáhá ti nebo spíš škodí? 
+              <a href="../index.html#kontakt">Napiš mi</a> - zajímá mě tvůj názor!
+            </em>
+          </p>
+        </div>
+      </article>
+
+      <div class="article-navigation">
+        <a href="../index.html#clanky" class="btn outline">← Zpět na články</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 codebydejv. Vytvořeno s ❤️ a Javou.</p>
+    </div>
+  </footer>
+
+  <style>
+    .article-main {
+      padding: 2rem 0 4rem;
+      margin-top: 4rem;
+    }
+    
+    .article {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .article-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .article h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .article-excerpt {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .tag {
+      background: var(--bg-muted);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .article-content {
+      line-height: 1.7;
+    }
+    
+    .article-content h2 {
+      margin: 2.5rem 0 1rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .article-content h3 {
+      margin: 2rem 0 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, .article-content ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+    
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .article-content blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--bg-muted);
+      border-left: 4px solid var(--primary);
+      border-radius: 0.5rem;
+      font-style: italic;
+    }
+    
+    .article-content code {
+      background: var(--bg-muted);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    
+    .article-content pre {
+      background: var(--bg-muted);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    
+    .article-content pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .article-content hr {
+      margin: 3rem 0;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    
+    .article-navigation {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .site-footer {
+      background: var(--bg-muted);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+    }
+  </style>
+</body>
+</html>
