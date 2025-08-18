@@ -82,14 +82,14 @@ const TAG_ORDER = ["Vše", "Java", "Spring", "REST", "React", "JUnit", "MySQL", 
 const SKILLS = [
   { name: "Java 21", lvl: 80 },
   { name: "Spring Boot", lvl: 75 },
-  { name: "Hibernate/JPA", lvl: 50 },
+  { name: "Hibernate/JPA", lvl: 30 },
   { name: "REST API", lvl: 75 },
   { name: "SQL / MySQL", lvl: 65 },
-  { name: "JUnit / MockMvc", lvl: 35 },
+  { name: "JUnit / MockMvc", lvl: 15 },
   { name: "Bootstrap", lvl: 70 },
   { name: "React", lvl: 30 },
   { name: "AI & Prompt Engineering", lvl: 45 },
-  { name: "Docker", lvl: 35 },
+  { name: "Docker", lvl: 15 },
   { name: "Git / GitHub", lvl: 70 },
 ];
 
