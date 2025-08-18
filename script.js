@@ -17,8 +17,8 @@ const PROJECTS = [
     demo: ""
   },
   {
-    title: "Insurance Manager API",
-    desc: "Spring Boot REST, DTO vs Entity, Bean Validation, databázové schéma, MockMvc testy.",
+    title: "Správce pojištění API",
+    desc: "Spring Boot REST API pro správu pojištění, DTO vs Entity, Bean Validation, databázové schéma, MockMvc testy.",
     tags: ["Java", "Spring", "REST", "JUnit"],
     code: "https://github.com/Dejv1sko/insurance-manager",
     demo: ""
@@ -47,7 +47,7 @@ const ARTICLES = [
     date: "2025-08-10",
     readTime: "5 min",
     tags: ["Java", "Začátečník", "Učení"],
-    link: "#"
+    link: "clanky/jak-jsem-se-ucil-java.html"
   },
   {
     title: "Spring Boot vs čisté Java - kdy použít co?",
@@ -55,7 +55,7 @@ const ARTICLES = [
     date: "2025-07-15", 
     readTime: "7 min",
     tags: ["Java", "Spring Boot", "Backend"],
-    link: "#"
+    link: "clanky/spring-boot-vs-java.html"
   },
   {
     title: "Moje první REST API - chyby a poučení",
@@ -63,7 +63,7 @@ const ARTICLES = [
     date: "2025-06-20",
     readTime: "6 min", 
     tags: ["REST API", "Spring", "Začátečník"],
-    link: "#"
+    link: "clanky/moje-prvni-rest-api.html"
   },
   {
     title: "AI nástroje pro Java developery - moje zkušenosti",

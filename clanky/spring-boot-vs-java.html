@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spring Boot vs čisté Java - kdy použít co? | codebydejv</title>
+  <meta name="description" content="Praktické srovnání Spring Boot frameworku a čistého Java. Kdy se vyplatí použít co a jaké jsou výhody a nevýhody." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container row header-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-brackets">&lt;/&gt;</span>
+        <span class="brand-text">codebydejv</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html#o-mne">O mně</a>
+        <a href="../index.html#projekty">Projekty</a>
+        <a href="../index.html#clanky">Články</a>
+        <a href="../index.html#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-main">
+    <div class="container">
+      <article class="article">
+        <header class="article-header">
+          <div class="article-meta">
+            <span class="article-date">15. července 2025</span>
+            <span class="article-read-time">7 min čtení</span>
+          </div>
+          <h1>Spring Boot vs čisté Java - kdy použít co?</h1>
+          <p class="article-excerpt">
+            Praktické srovnání toho, kdy se vyplatí použít Spring Boot framework a kdy stačí čisté Java pro jednoduché projekty.
+          </p>
+          <div class="article-tags">
+            <span class="tag">Java</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">Backend</span>
+          </div>
+        </header>
+
+        <div class="article-content">
+          <p>
+            Jedna z prvních otázek, kterou si začátečník v Javě položí: "Mám se učit čisté Java, nebo rovnou Spring Boot?" 
+            Já jsem si touto otázkou prošel a dnes ti ukážu, jak na to nahlížím po roce praktických zkušeností.
+          </p>
+
+          <h2>🤔 Můj začátek - chaos v hlavě</h2>
+          <p>
+            Když jsem začínal, všude jsem slyšel: "Spring Boot je standard", "Všichni používají Spring", 
+            "Bez Springu se neuplatníš". Tak jsem se rovnou vrhl na Spring Boot tutoriály.
+          </p>
+          
+          <p>
+            <strong>Výsledek?</strong> Měl jsem funkční REST API za hodinu, ale nechápal jsem, jak to funguje. 
+            Spring Boot za mě vyřešil tolik věcí, že jsem ztratil přehled o základech.
+          </p>
+
+          <blockquote>
+            <p>
+              "Spring Boot je skvělý nástroj, ale nejdřív musíš pochopit, jaké problémy řeší. 
+              Jinak budeš jen kopírovat kód z Stack Overflow."
+            </p>
+          </blockquote>
+
+          <h2>🔍 Čisté Java - kdy to má smysl</h2>
+          
+          <h3>✅ Kdy volím čisté Java:</h3>
+          <ul>
+            <li><strong>Učební projekty</strong> - Chci pochopit, jak věci fungují pod kapotou</li>
+            <li><strong>Jednoduché utility</strong> - Kalkulačky, konvertory, CLI nástroje</li>
+            <li><strong>Algoritmy a data struktury</strong> - Tady framework jen překáží</li>
+            <li><strong>Experimenty</strong> - Zkouším nové koncepty bez "magie"</li>
+          </ul>
+
+          <h3>Příklad - moje OSVČ kalkulačka:</h3>
+          <pre><code>public class OSVCCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Zadej měsíční příjem: ");
+        double prijem = scanner.nextDouble();
+        
+        double odvody = vypocitejOdvody(prijem);
+        double cistyPrijem = prijem - odvody;
+        
+        System.out.printf("Odvody: %.2f Kč%n", odvody);
+        System.out.printf("Čistý příjem: %.2f Kč%n", cistyPrijem);
+    }
+    
+    private static double vypocitejOdvody(double prijem) {
+        // Zjednodušený výpočet odvodů
+        return prijem * 0.297; // 29.7% na odvody
+    }
+}</code></pre>
+
+          <p>
+            <strong>Proč čisté Java?</strong> Pro takový nástroj nepotřebuju webový server, dependency injection, 
+            ani databázi. Stačí mi pár tříd a hotovo.
+          </p>
+
+          <h2>🚀 Spring Boot - kdy začít</h2>
+          
+          <h3>✅ Kdy volím Spring Boot:</h3>
+          <ul>
+            <li><strong>REST API</strong> - Tady Spring Boot září</li>
+            <li><strong>Webové aplikace</strong> - MVC pattern out-of-the-box</li>
+            <li><strong>Databázové aplikace</strong> - Spring Data JPA je životní</li>
+            <li><strong>Microservices</strong> - Built-in podpora</li>
+            <li><strong>Production ready apps</strong> - Monitoring, health checks, metrics</li>
+          </ul>
+
+          <h3>Příklad - můj Správce pojištění API:</h3>
+          <pre><code>@RestController
+@RequestMapping("/api/policies")
+public class PolicyController {
+    
+    @Autowired
+    private PolicyService policyService;
+    
+    @GetMapping
+    public List&lt;PolicyDto&gt; getAllPolicies() {
+        return policyService.findAll();
+    }
+    
+    @PostMapping
+    public PolicyDto createPolicy(@Valid @RequestBody CreatePolicyDto dto) {
+        return policyService.create(dto);
+    }
+}</code></pre>
+
+          <p>
+            <strong>Proč Spring Boot?</strong> Za 20 řádků mám funkční REST API s validací, 
+            error handlingem a automatickou serializací JSON. V čistém Javě by to bylo 200+ řádků.
+          </p>
+
+          <h2>📊 Praktické srovnání</h2>
+          
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+              <thead>
+                <tr style="background: var(--bg-muted);">
+                  <th style="padding: 1rem; border: 1px solid var(--border); text-align: left;">Aspekt</th>
+                  <th style="padding: 1rem; border: 1px solid var(--border); text-align: left;">Čisté Java</th>
+                  <th style="padding: 1rem; border: 1px solid var(--border); text-align: left;">Spring Boot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Rychlost vývoje</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Pomalá</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Rychlá</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Pochopení kódu</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Úplné</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Částečné</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Velikost aplikace</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Malá</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Větší</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Konfigurace</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Ruční</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Auto-konfigurace</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Testování</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">JUnit only</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">@SpringBootTest, MockMvc</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1rem; border: 1px solid var(--border);"><strong>Produkční ready</strong></td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Hodně práce</td>
+                  <td style="padding: 1rem; border: 1px solid var(--border);">Out-of-the-box</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>🎯 Moje doporučení pro začátečníky</h2>
+          
+          <h3>1. Začni čistým Java (2-3 měsíce)</h3>
+          <p>Nauč se základy:</p>
+          <ul>
+            <li>OOP principy</li>
+            <li>Collections (List, Map, Set)</li>
+            <li>Exception handling</li>
+            <li>File operations</li>
+            <li>Základy JDBC</li>
+          </ul>
+
+          <h3>2. Udělej si jednoduchý projekt</h3>
+          <p>
+            Něco jako TODO aplikace s ukládáním do souboru. Pochopíš, 
+            kolik práce je s čistým Java a budeš víc oceňovat Spring Boot.
+          </p>
+
+          <h3>3. Pak přejdi na Spring Boot</h3>
+          <p>S dobrými základy budeš Spring Boot chápat, ne jen kopírovat. Uvidíš, jak ti ulehčuje život.</p>
+
+          <h2>💡 Praktické tipy</h2>
+          
+          <h3>Když si nejsi jistý:</h3>
+          <ul>
+            <li><strong>Malý projekt?</strong> → Čisté Java</li>
+            <li><strong>Potřebuješ REST API?</strong> → Spring Boot</li>
+            <li><strong>Učíš se Java?</strong> → Začni čistým Java</li>
+            <li><strong>Stavíš production app?</strong> → Spring Boot</li>
+            <li><strong>CLI nástroj?</strong> → Čisté Java</li>
+            <li><strong>Webová aplikace?</strong> → Spring Boot</li>
+          </ul>
+
+          <h3>Kombinuj oba přístupy:</h3>
+          <p>
+            I v Spring Boot projektech píšu business logiku v čistém Java. 
+            Spring použiju jen pro infrastrukturu (controllers, repositories, config).
+          </p>
+
+          <h2>🏁 Závěr</h2>
+          <p>
+            Neexistuje univerzální odpověď. Oba přístupy mají své místo. 
+            Čisté Java ti pomůže pochopit základy, Spring Boot ti ušetří čas v praxi.
+          </p>
+          
+          <p>
+            <strong>Můj workflow dnes:</strong>
+          </p>
+          <ol>
+            <li>Začnu čistým Java - napíšu business logiku</li>
+            <li>Otestuju logiku s JUnit</li>
+            <li>Zabalím to do Spring Boot - přidám REST API</li>
+            <li>Přidám databázi přes Spring Data JPA</li>
+          </ol>
+
+          <p>
+            Takhle mám kontrolu nad kódem, ale nemusím řešit infrastrukturu. 
+            Best of both worlds! 😊
+          </p>
+
+          <hr>
+
+          <p>
+            <em>
+              Máš jiné zkušenosti se Spring Boot vs čistým Java? 
+              <a href="../index.html#kontakt">Napiš mi</a> - rád si vyměníme názory!
+            </em>
+          </p>
+        </div>
+      </article>
+
+      <div class="article-navigation">
+        <a href="../index.html#clanky" class="btn outline">← Zpět na články</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 codebydejv. Vytvořeno s ❤️ a Javou.</p>
+    </div>
+  </footer>
+
+  <style>
+    .article-main {
+      padding: 2rem 0 4rem;
+      margin-top: 4rem;
+    }
+    
+    .article {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .article-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .article h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .article-excerpt {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .tag {
+      background: var(--bg-muted);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .article-content {
+      line-height: 1.7;
+    }
+    
+    .article-content h2 {
+      margin: 2.5rem 0 1rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .article-content h3 {
+      margin: 2rem 0 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, .article-content ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+    
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .article-content blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--bg-muted);
+      border-left: 4px solid var(--primary);
+      border-radius: 0.5rem;
+      font-style: italic;
+    }
+    
+    .article-content code {
+      background: var(--bg-muted);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    
+    .article-content pre {
+      background: var(--bg-muted);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    
+    .article-content pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .article-content hr {
+      margin: 3rem 0;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    
+    .article-navigation {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .site-footer {
+      background: var(--bg-muted);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moje první REST API - chyby a poučení | codebydejv</title>
+  <meta name="description" content="Co všechno jsem pokazil při tvorbě prvního REST API a jak jsem se z toho poučil. Praktické tipy pro začátečníky." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container row header-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-brackets">&lt;/&gt;</span>
+        <span class="brand-text">codebydejv</span>
+      </a>
+      <nav class="nav">
+        <a href="../index.html#o-mne">O mně</a>
+        <a href="../index.html#projekty">Projekty</a>
+        <a href="../index.html#clanky">Články</a>
+        <a href="../index.html#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="article-main">
+    <div class="container">
+      <article class="article">
+        <header class="article-header">
+          <div class="article-meta">
+            <span class="article-date">20. června 2025</span>
+            <span class="article-read-time">6 min čtení</span>
+          </div>
+          <h1>Moje první REST API - chyby a poučení</h1>
+          <p class="article-excerpt">
+            Co všechno jsem pokazil při tvorbě prvního REST API a jak jsem se z toho poučil. Praktické tipy pro začátečníky.
+          </p>
+          <div class="article-tags">
+            <span class="tag">REST API</span>
+            <span class="tag">Spring</span>
+            <span class="tag">Začátečník</span>
+          </div>
+        </header>
+
+        <div class="article-content">
+          <p>
+            Pamatuješ si své první auto? To první API je podobné - je to vzrušující, 
+            ale taky děsivé, protože nevíš, co všechno můžeš pokazit. Já jsem toho pokazil hodně. 
+            A přesně o tom je tenhle článek.
+          </p>
+
+          <h2>🎯 Můj první projekt: Správce pojištění</h2>
+          <p>
+            Rozhodl jsem se vytvořit API pro správu pojištění. Zdálo se mi to jednoduché: 
+            CRUD operace, pár endpointů, databáze. Co může být tak těžkého, ne?
+          </p>
+          
+          <p>
+            <strong>Spoiler alert:</strong> Všechno. Všechno může být těžké, když nevíš, co děláš. 😅
+          </p>
+
+          <h2>❌ Chyba #1: Všechno v jednom controlleru</h2>
+          
+          <h3>Co jsem udělal špatně:</h3>
+          <pre><code>@RestController
+public class EverythingController {
+    
+    // Policies
+    @GetMapping("/policies")
+    public List&lt;Policy&gt; getPolicies() { ... }
+    
+    @PostMapping("/policies")
+    public Policy createPolicy(@RequestBody Policy policy) { ... }
+    
+    // Clients  
+    @GetMapping("/clients")
+    public List&lt;Client&gt; getClients() { ... }
+    
+    @PostMapping("/clients") 
+    public Client createClient(@RequestBody Client client) { ... }
+    
+    // Claims
+    @GetMapping("/claims")
+    public List&lt;Claim&gt; getClaims() { ... }
+    
+    // ... další 20 endpointů
+}</code></pre>
+
+          <p>
+            Jeden controller s 25 endpointy. Soubor dlouhý 500 řádků. 
+            Hledání konkrétní metody bylo jako hledání jehly v kupce sena.
+          </p>
+
+          <h3>✅ Jak to řeším dnes:</h3>
+          <pre><code>@RestController
+@RequestMapping("/api/policies")
+public class PolicyController {
+    // Jen operace s pojištěními
+}
+
+@RestController
+@RequestMapping("/api/clients")
+public class ClientController {
+    // Jen operace s klienty
+}
+
+@RestController
+@RequestMapping("/api/claims")
+public class ClaimController {
+    // Jen operace s škodami
+}</code></pre>
+
+          <blockquote>
+            <p>
+              <strong>Poučení:</strong> Jeden controller = jedna doména. 
+              Pokud má controller víc než 10 endpointů, je čas ho rozdělit.
+            </p>
+          </blockquote>
+
+          <h2>❌ Chyba #2: Entity přímo v API</h2>
+          
+          <h3>Co jsem udělal špatně:</h3>
+          <pre><code>@Entity
+@Table(name = "policies")
+public class Policy {
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    private String number;
+    private BigDecimal amount;
+    private String clientPassword; // 😱 Heslo v responsu!
+    private LocalDateTime createdAt;
+    
+    // ... všechny database sloupce
+}</code></pre>
+
+          <p>
+            Vrátil jsem Entity přímo z API. Výsledek? Hesla v JSON responsech, 
+            zbytečná data, lazy loading exceptions a celkový chaos.
+          </p>
+
+          <h3>✅ Jak to řeším dnes:</h3>
+          <pre><code>// DTO pro response
+public class PolicyDto {
+    private Long id;
+    private String number;
+    private BigDecimal amount;
+    private String clientName; // Jen jméno, ne celý objekt
+    private LocalDateTime createdAt;
+}
+
+// DTO pro vytvoření
+public class CreatePolicyDto {
+    @NotBlank(message = "Číslo pojištění je povinné")
+    private String number;
+    
+    @NotNull(message = "Částka je povinná")
+    @DecimalMin(value = "0.01", message = "Částka musí být větší než 0")
+    private BigDecimal amount;
+    
+    @NotNull(message = "ID klienta je povinné")
+    private Long clientId;
+}
+
+// Controller
+@PostMapping
+public PolicyDto createPolicy(@Valid @RequestBody CreatePolicyDto dto) {
+    Policy policy = policyService.create(dto);
+    return policyMapper.toDto(policy);
+}</code></pre>
+
+          <blockquote>
+            <p>
+              <strong>Poučení:</strong> Entity ≠ DTO. API má svoje rozhraní, 
+              databáze má svoje. Nikdy je nemixtuj.
+            </p>
+          </blockquote>
+
+          <h2>❌ Chyba #3: Žádná validace</h2>
+          
+          <h3>Co jsem udělal špatně:</h3>
+          <pre><code>@PostMapping("/policies")
+public Policy createPolicy(@RequestBody Policy policy) {
+    // Žádná validace, jen uložím co přijde
+    return policyRepository.save(policy);
+}</code></pre>
+
+          <p>
+            Výsledek: Prázdná čísla pojištění, negativní částky, null hodnoty všude. 
+            Databáze byla plná smetí.
+          </p>
+
+          <h3>✅ Jak to řeším dnes:</h3>
+          <pre><code>public class CreatePolicyDto {
+    @NotBlank(message = "Číslo pojištění je povinné")
+    @Size(min = 8, max = 20, message = "Číslo pojištění musí mít 8-20 znaků")
+    private String number;
+    
+    @NotNull(message = "Částka je povinná")
+    @DecimalMin(value = "0.01", message = "Částka musí být větší než 0")
+    @DecimalMax(value = "10000000", message = "Částka je příliš vysoká")
+    private BigDecimal amount;
+    
+    @NotNull(message = "Typ pojištění je povinný")
+    private PolicyType type;
+}</code></pre>
+
+          <blockquote>
+            <p>
+              <strong>Poučení:</strong> Validuj vše, co přijde zvenčí. 
+              Bean Validation je tvůj kamarád.
+            </p>
+          </blockquote>
+
+          <h2>❌ Chyba #4: Špatné HTTP status kódy</h2>
+          
+          <h3>Co jsem udělal špatně:</h3>
+          <pre><code>@GetMapping("/policies/{id}")
+public Policy getPolicy(@PathVariable Long id) {
+    Policy policy = policyRepository.findById(id);
+    if (policy == null) {
+        return null; // 😱 200 OK s null
+    }
+    return policy;
+}
+
+@PostMapping("/policies")
+public Policy createPolicy(@RequestBody Policy policy) {
+    return policyRepository.save(policy); // 😱 200 OK místo 201 Created
+}</code></pre>
+
+          <h3>✅ Jak to řeším dnes:</h3>
+          <pre><code>@GetMapping("/policies/{id}")
+public ResponseEntity&lt;PolicyDto&gt; getPolicy(@PathVariable Long id) {
+    Optional&lt;Policy&gt; policy = policyService.findById(id);
+    
+    if (policy.isEmpty()) {
+        return ResponseEntity.notFound().build(); // 404 Not Found
+    }
+    
+    PolicyDto dto = policyMapper.toDto(policy.get());
+    return ResponseEntity.ok(dto); // 200 OK
+}
+
+@PostMapping("/policies")
+public ResponseEntity&lt;PolicyDto&gt; createPolicy(@Valid @RequestBody CreatePolicyDto dto) {
+    Policy policy = policyService.create(dto);
+    PolicyDto responseDto = policyMapper.toDto(policy);
+    
+    return ResponseEntity
+        .status(HttpStatus.CREATED) // 201 Created
+        .header("Location", "/api/policies/" + policy.getId())
+        .body(responseDto);
+}</code></pre>
+
+          <h2>❌ Chyba #5: Business logika v controlleru</h2>
+          
+          <h3>Co jsem udělal špatně:</h3>
+          <pre><code>@PostMapping("/policies")
+public Policy createPolicy(@RequestBody Policy policy) {
+    // Ověření klienta
+    Client client = clientRepository.findById(policy.getClientId());
+    if (client == null) {
+        throw new RuntimeException("Klient neexistuje");
+    }
+    
+    // Výpočet pojistného
+    BigDecimal premium = policy.getAmount().multiply(new BigDecimal("0.05"));
+    policy.setPremium(premium);
+    
+    // Generování čísla
+    String number = "POL-" + System.currentTimeMillis();
+    policy.setNumber(number);
+    
+    // Odeslání emailu
+    emailService.sendPolicyCreated(client.getEmail(), policy);
+    
+    return policyRepository.save(policy);
+}</code></pre>
+
+          <h3>✅ Jak to řeším dnes:</h3>
+          <pre><code>// Controller - jen orchestrace
+@PostMapping("/policies")
+public ResponseEntity&lt;PolicyDto&gt; createPolicy(@Valid @RequestBody CreatePolicyDto dto) {
+    Policy policy = policyService.create(dto);
+    PolicyDto responseDto = policyMapper.toDto(policy);
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+}
+
+// Service - business logika
+@Service
+public class PolicyService {
+    
+    public Policy create(CreatePolicyDto dto) {
+        validateClient(dto.getClientId());
+        
+        Policy policy = new Policy();
+        policy.setNumber(generatePolicyNumber());
+        policy.setAmount(dto.getAmount());
+        policy.setPremium(calculatePremium(dto.getAmount()));
+        policy.setClientId(dto.getClientId());
+        
+        Policy savedPolicy = policyRepository.save(policy);
+        
+        notificationService.sendPolicyCreated(savedPolicy);
+        
+        return savedPolicy;
+    }
+}</code></pre>
+
+          <h2>📝 Moje checklist pro REST API dnes</h2>
+          
+          <h3>✅ Struktura:</h3>
+          <ul>
+            <li>Jeden controller = jedna doména</li>
+            <li>Oddělené DTOs pro input/output</li>
+            <li>Business logika v service vrstvě</li>
+            <li>Mapování mezi Entity a DTO</li>
+          </ul>
+
+          <h3>✅ Validace:</h3>
+          <ul>
+            <li>Bean Validation na DTO</li>
+            <li>@Valid v controlleru</li>
+            <li>Custom validátory pro složitější logiku</li>
+            <li>Global exception handler</li>
+          </ul>
+
+          <h3>✅ HTTP konvence:</h3>
+          <ul>
+            <li>200 OK - úspěšné čtení</li>
+            <li>201 Created - úspěšné vytvoření</li>
+            <li>204 No Content - úspěšné smazání</li>
+            <li>400 Bad Request - chyby validace</li>
+            <li>404 Not Found - nenalezeno</li>
+            <li>500 Internal Server Error - server chyby</li>
+          </ul>
+
+          <h3>✅ Testování:</h3>
+          <ul>
+            <li>Unit testy pro service vrstvu</li>
+            <li>Integration testy pro controllery (@SpringBootTest)</li>
+            <li>MockMvc pro testování endpointů</li>
+            <li>TestContainers pro databázové testy</li>
+          </ul>
+
+          <h2>💡 Tipy pro začátečníky</h2>
+          
+          <ol>
+            <li><strong>Začni malé</strong> - První API nech jednoduché, komplexnost přidej později</li>
+            <li><strong>Následuj konvence</strong> - REST má svoja pravidla, respektuj je</li>
+            <li><strong>Testuj od začátku</strong> - Testy ti ukážou chyby dřív než uživatelé</li>
+            <li><strong>Používej nástroje</strong> - Postman, Swagger, Spring Boot Actuator</li>
+            <li><strong>Čti cizí kód</strong> - Koukej jak to dělají jiní na GitHubu</li>
+          </ol>
+
+          <h2>🏁 Závěr</h2>
+          <p>
+            Moje první API byla katastrofa. Ale každá chyba mě něco naučila. 
+            Dnes píšu čistší kód, lepší architekturu a méně bugů.
+          </p>
+          
+          <p>
+            <strong>Nejdůležitější poučení:</strong> Neboj se dělat chyby. 
+            Refaktoring je normální část vývoje. Tvoje první API nebude dokonalé - a to je v pořádku.
+          </p>
+
+          <blockquote>
+            <p>
+              "Code is never finished, only abandoned." - anonymous developer
+            </p>
+          </blockquote>
+
+          <p>
+            Můj Správce pojištění API prošel už třemi velkými refactoringy. 
+            A pořád najdu věci, které by šly udělat lépe. To je krása programování - 
+            vždycky se máš kam posunout! 🚀
+          </p>
+
+          <hr>
+
+          <p>
+            <em>
+              Máš zkušenosti s tvorbou prvního API? Nebo se chystáš na to? 
+              <a href="../index.html#kontakt">Napiš mi</a> - rád si vyměníme tipy a triky!
+            </em>
+          </p>
+        </div>
+      </article>
+
+      <div class="article-navigation">
+        <a href="../index.html#clanky" class="btn outline">← Zpět na články</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 codebydejv. Vytvořeno s ❤️ a Javou.</p>
+    </div>
+  </footer>
+
+  <style>
+    .article-main {
+      padding: 2rem 0 4rem;
+      margin-top: 4rem;
+    }
+    
+    .article {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .article-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .article h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .article-excerpt {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .tag {
+      background: var(--bg-muted);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .article-content {
+      line-height: 1.7;
+    }
+    
+    .article-content h2 {
+      margin: 2.5rem 0 1rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .article-content h3 {
+      margin: 2rem 0 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .article-content ul, .article-content ol {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+    
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .article-content blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--bg-muted);
+      border-left: 4px solid var(--primary);
+      border-radius: 0.5rem;
+      font-style: italic;
+    }
+    
+    .article-content code {
+      background: var(--bg-muted);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    
+    .article-content pre {
+      background: var(--bg-muted);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    
+    .article-content pre code {
+      background: none;
+      padding: 0;
+    }
+    
+    .article-content hr {
+      margin: 3rem 0;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    
+    .article-navigation {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .site-footer {
+      background: var(--bg-muted);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+    }
+  </style>
+</body>
+</html>
