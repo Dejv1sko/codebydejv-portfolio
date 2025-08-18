@@ -10,8 +10,8 @@ const SITE = {
 /** Projekty – přidej/odebírej jen položky v poli */
 const PROJECTS = [
   {
-    title: "Fakturace OSVČ (Java)",
-    desc: "Konzolová app + úložiště, validace vstupů, práce s kolekcemi. Druhá verze s DB souborem.",
+    title: "Fakturace OSVČ (konzolová verze)",
+    desc: "Moje první větší Java projekt. Jednoduchá konzolová aplikace pro základní fakturaci OSVČ. Validace vstupů, práce s kolekcemi, ukládání do textového souboru.",
     tags: ["Java", "CLI"],
     code: "https://github.com/Dejv1sko/FakturaceOSVC",
     demo: ""
@@ -31,8 +31,8 @@ const PROJECTS = [
     demo: "#"
   },
   {
-    title: "Evidence OSVČ",
-    desc: "JavaFX desktopová aplikace pro správu faktur, jízd a nákladů podnikatele. Evidence příjmů/výdajů, statistiky, automatické reporty, výpočet daně a pojištění.",
+    title: "Evidence OSVČ (desktopová aplikace)",
+    desc: "Pokročilá JavaFX aplikace - evoluce konzolové verze. Kompletní evidence podnikatele: faktury, jízdy, náklady, statistiky, grafy, automatické reporty, výpočet daní a pojištění.",
     tags: ["Java", "JavaFX", "Desktop"],
     code: "https://github.com/Dejv1sko/OSVC-Evidence",
     demo: "#"
