@@ -107,7 +107,7 @@ const TIPS = [
 // Informace o mně
 const ABOUT_INFO = {
   story: "Programování jsem objevil poměrně pozdě, ale o to intenzivněji. Začal jsem jako naprostý začátečnik bez informatického vzdělání, jen se zvědavostí a odhodláním. Java se stala mou vášní díky své jasné struktuře a obrovským možnostem.",
-  currentFocus: "Specializuji se na backend development s Javou 21 a Spring Boot. Věřím v pragmatický přístup a čistý kód.",
+  currentFocus: "Učím se  backend development s Javou 21 a Spring Boot. Věřím v pragmatický přístup a čistý kód.",
   learning: "Jsem autodidakt, který preferuje oficiální dokumentaci, GitHub projekty a vlastní experimenty.",
   future: "Směřuji k senior pozici s fokusem na mikroservisy, cloud technologie a mentoring začátečníků."
 };
