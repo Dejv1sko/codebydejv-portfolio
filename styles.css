@@ -897,6 +897,8 @@ html.light .form-group textarea {
     justify-content: center !important;
     cursor: pointer !important;
     z-index: 1002 !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 
   .site-header .mobile-toggle { 
@@ -918,6 +920,20 @@ html.light .form-group textarea {
     justify-content: center !important;
     transition: background-color 0.2s ease !important;
     flex-shrink: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Override .btn.ghost specifically on mobile */
+  .site-header #themeToggle.btn.ghost {
+    background: var(--bg-elev) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
+  }
+
+  .site-header .mobile-toggle.btn.ghost {
+    background: var(--bg-elev) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: none !important;
   }
 
   .site-header .mobile-toggle:hover {
@@ -942,6 +958,19 @@ html.light .form-group textarea {
 
   html.light .site-header #themeToggle:hover {
     background-color: var(--l-bg-secondary) !important;
+  }
+
+  /* Light mode override for .btn.ghost */
+  html.light .site-header #themeToggle.btn.ghost {
+    background: var(--l-bg-elev) !important;
+    border: 1px solid var(--l-border) !important;
+    color: var(--l-text) !important;
+  }
+
+  html.light .site-header .mobile-toggle.btn.ghost {
+    background: var(--l-bg-elev) !important;
+    border: 1px solid var(--l-border) !important;
+    color: var(--l-text) !important;
   }
   
   .nav {
