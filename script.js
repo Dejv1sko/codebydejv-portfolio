@@ -345,6 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup features
   setupMobileNavigation();
   setupScrollAnimations();
+  setupScrollToTop();
   setupContactForm();
 
   // Render content
@@ -448,9 +449,11 @@ function setupContactForm() {
 function setupMobileNavigation() {
   const mobileToggle = $("#mobileToggle");
   const nav = $("#nav");
+  const header = $(".site-header");
   let lastScrollY = window.scrollY;
+  let scrollTimeout;
   
-  if (mobileToggle && nav) {
+  if (mobileToggle && nav && header) {
     mobileToggle.addEventListener("click", () => {
       nav.classList.toggle("active");
       mobileToggle.textContent = nav.classList.contains("active") ? "✕" : "☰";
@@ -464,16 +467,39 @@ function setupMobileNavigation() {
       });
     });
 
-    // Close menu when scrolling down
+    // Smart header behavior on scroll
     window.addEventListener("scroll", () => {
       const currentScrollY = window.scrollY;
       
+      // Close menu when scrolling down and menu is open
       if (currentScrollY > lastScrollY && nav.classList.contains("active")) {
         nav.classList.remove("active");
         mobileToggle.textContent = "☰";
       }
       
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down - hide header
+        header.classList.add("header-hidden");
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show header
+        header.classList.remove("header-hidden");
+      }
+      
+      // Always show header when near top
+      if (currentScrollY < 50) {
+        header.classList.remove("header-hidden");
+      }
+      
       lastScrollY = currentScrollY;
+      
+      // Clear any existing timeout
+      clearTimeout(scrollTimeout);
+      
+      // Show header after user stops scrolling for 1 second
+      scrollTimeout = setTimeout(() => {
+        header.classList.remove("header-hidden");
+      }, 1000);
     });
   }
 }
@@ -554,5 +580,31 @@ function closeArticleModal() {
       document.body.removeChild(modal);
       document.body.style.overflow = '';
     }, 300);
+  }
+}
+
+// ====== Scroll to Top ======
+function setupScrollToTop() {
+  const scrollToTopBtn = $("#scrollToTop");
+  
+  if (scrollToTopBtn) {
+    // Show/hide button based on scroll position
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 300) {
+        scrollToTopBtn.classList.add("visible");
+      } else {
+        scrollToTopBtn.classList.remove("visible");
+      }
+    });
+    
+    // Smooth scroll to top when clicked
+    scrollToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
   }
 }

@@ -96,7 +96,14 @@ html.light .section.alt {
   backdrop-filter: blur(10px);
   background: rgba(7,11,24,.55);
   border-bottom: 1px solid var(--border);
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
 }
+
+.site-header.header-hidden {
+  transform: translateY(-100%);
+}
+
 html.light .site-header {
   background: rgba(255,255,255,.7);
   border-bottom: 1px solid var(--l-border);
@@ -1180,6 +1187,50 @@ html.light .article-modal-close {
 html.light .article-modal-close:hover {
   background-color: var(--l-bg) !important;
   color: var(--l-text) !important;
+}
+
+/* ====== Scroll to Top Button ====== */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
 }
 
 html.light .article-modal .tag {
