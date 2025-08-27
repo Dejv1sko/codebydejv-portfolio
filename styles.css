@@ -1,6 +1,14 @@
 /* ====== Reset & base ====== */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+* { 
+  box-sizing: border-box; 
+  max-width: 100%;
+}
+html, body { 
+  margin: 0; 
+  padding: 0; 
+  overflow-x: hidden;
+  width: 100%;
+}
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -57,8 +65,10 @@ a:hover { text-decoration: underline; }
 
 /* ====== Layout ====== */
 .container {
-  width: min(1100px, 92%);
+  width: min(1100px, 100%);
   margin-inline: auto;
+  padding-inline: max(16px, env(safe-area-inset-left)), max(16px, env(safe-area-inset-right));
+  box-sizing: border-box;
 }
 
 .section {
@@ -73,9 +83,11 @@ html.light .section.alt {
 
 .row {
   display: flex; align-items: center; gap: 16px;
+  flex-wrap: wrap;
 }
 .grid {
   display: grid; gap: 20px;
+  width: 100%;
 }
 
 /* ====== Header ====== */
@@ -269,7 +281,9 @@ html.light .feature-list li { color: var(--l-muted); }
 
 /* Articles */
 .articles {
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 20px;
 }
 .article {
   display: flex; flex-direction: column; gap: 12px;
@@ -336,7 +350,9 @@ html.light .timeline-dot { border-color: var(--l-bg); }
 html.light .timeline-content p { color: var(--l-muted); }
 
 .projects {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 20px;
 }
 .project {
   display: flex; flex-direction: column; gap: 12px;
@@ -346,7 +362,9 @@ html.light .timeline-content p { color: var(--l-muted); }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .skills {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 20px;
 }
 .skill { display: grid; gap: 8px; }
 .bar {
@@ -431,7 +449,7 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
     grid-template-columns: 1fr;
   }
   .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
     gap: 12px;
   }
   
@@ -476,7 +494,9 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
   
   /* Container */
   .container {
-    width: min(100%, 92%);
+    width: 100%;
+    padding-inline: 16px;
+    margin-inline: auto;
   }
   
   /* Contact form specific mobile fixes */
@@ -529,6 +549,7 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
   
   .tools-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   
   .timeline-item {
@@ -552,7 +573,8 @@ html.light .site-footer { border-top-color: var(--l-border); color: var(--l-mute
   }
   
   .container {
-    width: min(100%, 95%);
+    width: 100%;
+    padding-inline: 12px;
   }
   
   /* Lepší touch targets */
@@ -641,8 +663,10 @@ html.light .loading-screen {
 
 /* ====== Tools Grid ====== */
 .tools-grid {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   gap: 16px;
+  width: 100%;
 }
 .tool-card {
   padding: 20px;
@@ -651,6 +675,7 @@ html.light .loading-screen {
   background: var(--bg-elev);
   border: 1px solid var(--border);
   transition: all 0.3s ease;
+  position: relative;
 }
 .tool-card:hover {
   transform: translateY(-4px);
@@ -659,6 +684,14 @@ html.light .loading-screen {
 html.light .tool-card {
   background: var(--l-bg-elev);
   border-color: var(--l-border);
+}
+
+.tool-link-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
 .tool-icon {
@@ -823,11 +856,14 @@ html.light .form-group textarea {
 @media (max-width: 720px) {
   .mobile-toggle { 
     display: block !important;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
     z-index: 1001;
-    background: none;
-    border: none;
-    color: var(--text-primary);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    color: var(--text);
     cursor: pointer;
     padding: 8px;
     border-radius: 4px;
@@ -838,38 +874,39 @@ html.light .form-group textarea {
   .mobile-toggle:hover {
     background-color: var(--bg-secondary);
   }
+
+  html.light .mobile-toggle {
+    background: var(--l-bg-elev);
+    border-color: var(--l-border);
+    color: var(--l-text);
+  }
   
   .nav {
     position: fixed !important; 
-    top: 64px !important; 
-    right: 0 !important; 
-    width: 160px !important;
-    max-width: 50vw !important;
-    background: var(--bg-primary) !important; 
-    border-left: 1px solid var(--border) !important;
-    border-bottom: 1px solid var(--border) !important;
+    top: 72px !important; 
+    right: 8px !important; 
+    width: min(180px, 45vw) !important;
+    background: var(--bg-elev) !important; 
+    border: 1px solid var(--border) !important;
+    border-radius: 6px 0 0 6px !important;
     flex-direction: column !important; 
     gap: 0 !important; 
-    padding: 12px 0 !important;
+    padding: 8px 0 !important;
     transform: translateX(100%) !important; 
-    opacity: 0 !important;
-    transition: all 0.3s ease !important; 
+    transition: transform 0.3s ease !important; 
     pointer-events: none !important;
     z-index: 1000 !important;
-    box-shadow: -2px 2px 8px rgba(0,0,0,0.2) !important;
+    box-shadow: var(--shadow) !important;
     display: flex !important;
-    border-radius: 0 0 0 6px !important;
   }
   
   html.light .nav { 
-    background: var(--l-bg-primary) !important; 
-    border-left-color: var(--l-border) !important; 
-    border-bottom-color: var(--l-border) !important; 
+    background: var(--l-bg-elev) !important; 
+    border-color: var(--l-border) !important; 
   }
   
   .nav.active { 
     transform: translateX(0) !important; 
-    opacity: 1 !important; 
     pointer-events: all !important; 
   }
   
@@ -899,6 +936,31 @@ html.light .form-group textarea {
   * { transition: none !important; animation: none !important; }
 }
 
+/* ====== Horizontal scroll prevention ====== */
+img, svg, video, canvas, audio, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+}
+
+pre, code {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: auto;
+}
+
+/* Ensure all text content wraps properly */
+p, h1, h2, h3, h4, h5, h6, span, div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 /* ====== Article Modal ====== */
 .article-modal {
   position: fixed;
@@ -921,7 +983,7 @@ html.light .form-group textarea {
 }
 
 .article-modal-content {
-  background: var(--bg-primary);
+  background: var(--bg-elev);
   border-radius: 12px;
   max-width: 900px;
   max-height: 90vh;
@@ -944,7 +1006,7 @@ html.light .form-group textarea {
   border: none;
   font-size: 30px;
   cursor: pointer;
-  color: var(--text-muted);
+  color: var(--muted);
   z-index: 1001;
   width: 40px;
   height: 40px;
@@ -956,8 +1018,8 @@ html.light .form-group textarea {
 }
 
 .article-modal-close:hover {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: var(--bg-elev);
+  color: var(--text);
 }
 
 .article-modal-body {
@@ -982,40 +1044,43 @@ html.light .form-group textarea {
 .article-modal .article-content h2 {
   margin: 2rem 0 1rem;
   font-size: 1.5rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .article-modal .article-content h3 {
   margin: 1.5rem 0 0.8rem;
   font-size: 1.2rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .article-modal .article-content p {
   margin-bottom: 1.2rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .article-modal .article-content blockquote {
   margin: 1.5rem 0;
   padding: 1.2rem;
-  background: var(--bg-secondary);
+  background: var(--bg);
   border-left: 4px solid var(--primary);
   border-radius: 6px;
   font-style: italic;
+  color: var(--muted);
 }
 
 .article-modal .article-content pre {
-  background: var(--bg-secondary);
+  background: var(--bg);
   padding: 1.2rem;
   border-radius: 6px;
+  border: 1px solid var(--border);
   overflow-x: auto;
   margin: 1.2rem 0;
   font-size: 0.9rem;
 }
 
 .article-modal .article-content code {
-  background: var(--bg-secondary);
+  background: var(--bg);
+  color: var(--text);
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-family: 'Courier New', monospace;
@@ -1038,7 +1103,9 @@ html.light .form-group textarea {
 }
 
 .article-modal .tag {
-  background: var(--bg-secondary);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
   padding: 0.2rem 0.6rem;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -1066,4 +1133,57 @@ html.light .form-group textarea {
   .article-modal .article-content h2 {
     font-size: 1.3rem;
   }
+}
+
+/* ====== Light Mode for Article Modal ====== */
+html.light .article-modal-content {
+  background: var(--l-bg-elev) !important;
+  color: var(--l-text);
+}
+
+html.light .article-modal .article-header {
+  border-bottom-color: var(--l-border) !important;
+}
+
+html.light .article-modal .article-header h1,
+html.light .article-modal .article-content h2,
+html.light .article-modal .article-content h3 {
+  color: var(--l-text) !important;
+}
+
+html.light .article-modal .article-content p,
+html.light .article-modal .article-content li {
+  color: var(--l-text) !important;
+}
+
+html.light .article-modal .article-content blockquote {
+  background: var(--l-bg) !important;
+  border-left-color: var(--l-border) !important;
+  color: var(--l-muted) !important;
+}
+
+html.light .article-modal .article-content pre {
+  background: var(--l-bg) !important;
+  border: 1px solid var(--l-border) !important;
+  color: var(--l-text) !important;
+}
+
+html.light .article-modal .article-content code {
+  background: var(--l-bg) !important;
+  color: var(--l-text) !important;
+}
+
+html.light .article-modal-close {
+  color: var(--l-muted) !important;
+}
+
+html.light .article-modal-close:hover {
+  background-color: var(--l-bg) !important;
+  color: var(--l-text) !important;
+}
+
+html.light .article-modal .tag {
+  background: var(--l-bg) !important;
+  color: var(--l-text) !important;
+  border: 1px solid var(--l-border) !important;
 }

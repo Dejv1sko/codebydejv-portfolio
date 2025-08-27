@@ -11,7 +11,7 @@ const SITE = {
 const PROJECTS = [
   {
     title: "Fakturace OSVČ (konzolová verze)",
-    desc: "Moje první větší Java projekt. Jednoduchá konzolová aplikace pro základní fakturaci OSVČ. Validace vstupů, práce s kolekcemi, ukládání do textového souboru.",
+    desc: "Můj první větší Java projekt. Jednoduchá konzolová aplikace pro základní fakturaci OSVČ. Validace vstupů, práce s kolekcemi, ukládání do textového souboru.",
     tags: ["Java", "CLI"],
     code: "https://github.com/Dejv1sko/FakturaceOSVC",
     demo: ""
@@ -114,18 +114,18 @@ const ABOUT_INFO = {
 
 // Oblíbené nástroje
 const TOOLS = [
-  { name: "IntelliJ IDEA", icon: "🧠", desc: "Můj hlavní IDE pro Java" },
-  { name: "VS Code", icon: "💻", desc: "Pro frontend a rychlé úpravy" },
-  { name: "GitHub", icon: "🐙", desc: "Verzování a spolupráce" },
-  { name: "Postman", icon: "📮", desc: "Testování REST API" },
-  { name: "MySQL Workbench", icon: "🗄️", desc: "Správa databází" },
-  { name: "Chrome DevTools", icon: "🔍", desc: "Debug frontend kódu" },
-  { name: "ChatGPT", icon: "🤖", desc: "Nechávám si vysvětlovat problémy" },
-  { name: "GitHub Copilot", icon: "✨", desc: "Zkouším pro učení syntaxe" },
-  { name: "Spring Boot", icon: "🚀", desc: "Java framework" },
-  { name: "Docker", icon: "🐳", desc: "Kontejnerizace aplikací" },
-  { name: "Maven", icon: "📦", desc: "Build management" },
-  { name: "Git", icon: "🌿", desc: "Verzování kódu" }
+  { name: "IntelliJ IDEA", icon: "🧠", desc: "Můj hlavní IDE pro Java", url: "https://www.jetbrains.com/idea/" },
+  { name: "VS Code", icon: "💻", desc: "Pro frontend a rychlé úpravy", url: "https://code.visualstudio.com/" },
+  { name: "GitHub", icon: "🐙", desc: "Verzování a spolupráce", url: "https://github.com/" },
+  { name: "Postman", icon: "📮", desc: "Testování REST API", url: "https://www.postman.com/" },
+  { name: "MySQL Workbench", icon: "🗄️", desc: "Správa databází", url: "https://www.mysql.com/products/workbench/" },
+  { name: "Chrome DevTools", icon: "🔍", desc: "Debug frontend kódu", url: "https://developer.chrome.com/docs/devtools/" },
+  { name: "ChatGPT", icon: "🤖", desc: "Nechávám si vysvětlovat problémy", url: "https://chat.openai.com/" },
+  { name: "GitHub Copilot", icon: "✨", desc: "Zkouším pro učení syntaxe", url: "https://github.com/features/copilot" },
+  { name: "Spring Boot", icon: "🚀", desc: "Java framework", url: "https://spring.io/projects/spring-boot" },
+  { name: "Docker", icon: "🐳", desc: "Kontejnerizace aplikací", url: "https://www.docker.com/" },
+  { name: "Maven", icon: "📦", desc: "Build management", url: "https://maven.apache.org/" },
+  { name: "Git", icon: "🌿", desc: "Verzování kódu", url: "https://git-scm.com/" }
 ];
 
 // ====== DOM helpers ======
@@ -233,10 +233,19 @@ function renderTools() {
   TOOLS.forEach(tool => {
     const card = document.createElement("div");
     card.className = "tool-card";
+    
+    if (tool.url) {
+      card.style.cursor = "pointer";
+      card.addEventListener("click", () => {
+        window.open(tool.url, "_blank");
+      });
+    }
+    
     card.innerHTML = `
       <div class="tool-icon">${tool.icon}</div>
       <h3>${escapeHTML(tool.name)}</h3>
       <p>${escapeHTML(tool.desc)}</p>
+      ${tool.url ? '<div class="tool-link-indicator">🔗</div>' : ''}
     `;
     grid.appendChild(card);
   });
@@ -346,11 +355,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderArticleFilters();
   renderArticles(null);
   renderTips();
-
-  // Self-tests (spustíš přes ?test=1)
-  if (location.search.includes("test=1")) {
-    runTests();
-  }
 });
 
 // ====== Loading Screen ======
@@ -429,9 +433,6 @@ function setupContactForm() {
         form.reset();
         form.classList.remove("loading");
         
-        // Spusť konfetíčka! 🎉
-        createConfetti();
-        
         alert("Email klient byl otevřen s předvyplněnou zprávou!");
       }, 1000);
       
@@ -447,6 +448,7 @@ function setupContactForm() {
 function setupMobileNavigation() {
   const mobileToggle = $("#mobileToggle");
   const nav = $("#nav");
+  let lastScrollY = window.scrollY;
   
   if (mobileToggle && nav) {
     mobileToggle.addEventListener("click", () => {
@@ -460,6 +462,18 @@ function setupMobileNavigation() {
         nav.classList.remove("active");
         mobileToggle.textContent = "☰";
       });
+    });
+
+    // Close menu when scrolling down
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && nav.classList.contains("active")) {
+        nav.classList.remove("active");
+        mobileToggle.textContent = "☰";
+      }
+      
+      lastScrollY = currentScrollY;
     });
   }
 }
@@ -484,36 +498,6 @@ function setupScrollAnimations() {
 
   // Animace jen timeline items při scrollování
   $$("[data-animate]").forEach(el => observer.observe(el));
-}
-
-// ====== Self-tests ======
-function runTests() {
-  console.group("%cSelf-tests", "font-weight:bold");
-  try {
-    // 1) Filtrace „Java" vrací aspoň 1 projekt
-    const javaCount = PROJECTS.filter(p => p.tags.includes("Java")).length;
-    console.assert(javaCount >= 1, "Očekávám aspoň 1 Java projekt");
-
-    // 2) Filtrace „Neexistuje" vrací 0
-    const dummy = PROJECTS.filter(p => p.tags.includes("Neexistuje")).length;
-    console.assert(dummy === 0, "Očekávám 0 projektů pro tag 'Neexistuje'");
-
-    // 3) Theme persistence toggle
-    const before = localStorage.getItem(THEME_KEY);
-    toggleTheme();
-    const after = localStorage.getItem(THEME_KEY);
-    console.assert(after && after !== before, "Theme toggle má změnit hodnotu v localStorage");
-
-    // 4) Skills rozsah 0–100
-    const outOfRange = SKILLS.find(s => s.lvl < 0 || s.lvl > 100);
-    console.assert(!outOfRange, "Všechny skills lvl musí být 0–100");
-
-    console.log("%c✅ Testy proběhly. Výsledek viz assertions výše.", "color: #10b981");
-  } catch (e) {
-    console.error("❌ Test selhal:", e);
-  } finally {
-    console.groupEnd();
-  }
 }
 
 // Modal pro zobrazování článků
