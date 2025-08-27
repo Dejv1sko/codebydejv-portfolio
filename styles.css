@@ -861,65 +861,86 @@ html.light .form-group textarea {
 
 /* ====== Mobile Navigation - FINAL OVERRIDE ====== */
 @media (max-width: 768px) {
-  .header-controls {
+  /* Reset header layout */
+  .site-header .header-inner {
+    height: 64px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    position: relative !important;
+  }
+
+  .site-header .header-controls {
     position: relative !important;
     display: flex !important;
-    gap: 12px !important;
+    gap: 10px !important;
     align-items: center !important;
     justify-content: flex-end !important;
     flex-wrap: nowrap !important;
+    margin-left: auto !important;
   }
 
-  #themeToggle {
+  .site-header #themeToggle {
     order: 1 !important;
-    padding: 8px !important;
+    position: relative !important;
+    display: flex !important;
+    padding: 10px !important;
     font-size: 16px !important;
-    min-width: 40px !important;
-    height: 40px !important;
+    width: 44px !important;
+    height: 44px !important;
     border-radius: 6px !important;
     background: var(--bg-elev) !important;
     border: 1px solid var(--border) !important;
+    color: var(--text) !important;
     flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 1002 !important;
   }
 
-  .mobile-toggle { 
+  .site-header .mobile-toggle { 
     order: 2 !important;
+    position: relative !important;
     display: flex !important;
-    position: static !important;
     transform: none !important;
     z-index: 1001 !important;
     background: var(--bg-elev) !important;
     border: 1px solid var(--border) !important;
     color: var(--text) !important;
     cursor: pointer !important;
-    padding: 8px !important;
+    padding: 10px !important;
     border-radius: 6px !important;
     font-size: 18px !important;
-    min-width: 40px !important;
-    height: 40px !important;
+    width: 44px !important;
+    height: 44px !important;
     align-items: center !important;
     justify-content: center !important;
     transition: background-color 0.2s ease !important;
     flex-shrink: 0 !important;
   }
 
-  .mobile-toggle:hover {
+  .site-header .mobile-toggle:hover {
     background-color: var(--bg-secondary) !important;
   }
 
-  html.light .mobile-toggle {
+  html.light .site-header .mobile-toggle {
     background: var(--l-bg-elev) !important;
     border-color: var(--l-border) !important;
     color: var(--l-text) !important;
   }
 
-  html.light #themeToggle {
+  html.light .site-header #themeToggle {
     background: var(--l-bg-elev) !important;
     border-color: var(--l-border) !important;
     color: var(--l-text) !important;
   }
 
-  html.light .mobile-toggle:hover {
+  html.light .site-header .mobile-toggle:hover {
+    background-color: var(--l-bg-secondary) !important;
+  }
+
+  html.light .site-header #themeToggle:hover {
     background-color: var(--l-bg-secondary) !important;
   }
   
